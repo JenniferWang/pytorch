@@ -57,6 +57,26 @@ C10_DECLARE_bool(caffe2_use_fatal_for_enforce);
 
 namespace c10 {
 
+class C10_API MessageLogger {
+ public:
+  MessageLogger(const char* file, int line, int severity);
+  ~MessageLogger();
+  // Return the stream associated with the logger object.
+  std::stringstream& stream() {
+    return stream_;
+  }
+
+ private:
+  // When there is a fatal log, we simply abort.
+  void DealWithFatal() {
+    abort();
+  }
+
+  const char* tag_;
+  std::stringstream stream_;
+  int severity_;
+};
+
 using std::string;
 
 // Functions that we use for initialization.

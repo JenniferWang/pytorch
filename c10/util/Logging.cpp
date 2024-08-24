@@ -346,6 +346,7 @@ MessageLogger::MessageLogger(const char* file, int line, int severity)
   if (GLOBAL_RANK != -1) {
     stream_ << "[rank" << GLOBAL_RANK << "]:";
   }
+  constexpr auto CAFFE2_SEVERITY_PREFIX = "FEWIV";
   stream_ << "[" << CAFFE2_SEVERITY_PREFIX[std::min(4, GLOG_FATAL - severity_)]
           << (timeinfo->tm_mon + 1) * 100 + timeinfo->tm_mday
           << std::setfill('0') << " " << std::setw(2) << timeinfo->tm_hour
